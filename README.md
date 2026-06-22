@@ -1,1 +1,2 @@
-# crypto-trading-os-v2
+# Crypto Trading OS Final
+Main file: app.py
