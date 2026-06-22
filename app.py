@@ -1,4 +1,5 @@
 from services.derivatives import derivatives_summary
+from services.flows import stablecoin_summary, etf_flow_status
 import streamlit as st
 import pandas as pd
 from services.market_data import (
@@ -77,11 +78,6 @@ st.dataframe(pd.DataFrame(dashboard["macro_rows"]), use_container_width=True, hi
 st.subheader("₿ 加密市場")
 st.dataframe(pd.DataFrame(dashboard["crypto_rows"]), use_container_width=True, hide_index=True)
 
-st.subheader("⚡ 合約市場：Funding / OI")
-derivatives = derivatives_summary()
-st.dataframe(pd.DataFrame(derivatives), use_container_width=True, hide_index=True)
-st.caption("Funding / OI 來源：Binance Futures Public API")
-
 st.subheader("🔥 板塊排行榜")
 st.dataframe(pd.DataFrame(dashboard["sector_rows"]), use_container_width=True, hide_index=True)
 
@@ -98,3 +94,15 @@ st.warning(dashboard["discipline"])
 
 st.divider()
 st.caption("資料源：Binance、CoinGecko、Alternative.me、DefiLlama、Stooq。非投資建議。")
+
+
+
+st.subheader("💵 資金流：Stablecoin / ETF")
+
+stable_rows = stablecoin_summary()
+st.dataframe(pd.DataFrame(stable_rows), use_container_width=True, hide_index=True)
+
+etf_status = etf_flow_status()
+st.info(etf_status)
+
+st.caption("Stablecoin 來源：DefiLlama。ETF Flow：目前先顯示資料源狀態，避免用不穩定網頁資料產生錯誤分數。")
