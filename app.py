@@ -1,4 +1,4 @@
-
+from services.derivatives import derivatives_summary
 import streamlit as st
 import pandas as pd
 from services.market_data import (
@@ -76,6 +76,11 @@ st.dataframe(pd.DataFrame(dashboard["macro_rows"]), use_container_width=True, hi
 
 st.subheader("₿ 加密市場")
 st.dataframe(pd.DataFrame(dashboard["crypto_rows"]), use_container_width=True, hide_index=True)
+
+st.subheader("⚡ 合約市場：Funding / OI")
+derivatives = derivatives_summary()
+st.dataframe(pd.DataFrame(derivatives), use_container_width=True, hide_index=True)
+st.caption("Funding / OI 來源：Binance Futures Public API")
 
 st.subheader("🔥 板塊排行榜")
 st.dataframe(pd.DataFrame(dashboard["sector_rows"]), use_container_width=True, hide_index=True)
